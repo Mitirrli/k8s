@@ -75,7 +75,16 @@ RUN { \
 # Upload.ini
 COPY upload.ini /usr/local/etc/php/conf.d
 
+# 创建slow目录
+RUN mkdir /usr/local/log/
+
+# 复制配置文件到 /usr/local
+COPY etc /usr/local/etc
+
 # 设置工作目录
-WORKDIR /opt/www
+WORKDIR /var/www/html
+
+# RUNTIME权限
+RUN chown -R www-data:www-data runtime
 
 ENTRYPOINT ["php-fpm", "-R"]
